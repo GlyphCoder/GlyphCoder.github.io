@@ -1,0 +1,262 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    background-color: #333;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+/* Spotlight Effect */
+.spotlight {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    background: radial-gradient(circle, rgb(246, 246, 246) 0%, rgba(211, 211, 211, 0.5) 40%, #333 100%);
+    mix-blend-mode: color-dodge;
+    border-radius: 50%;
+    transform: translate(-60%, -60%);
+    z-index: 9999;
+    transition: top 0.5s ease-out, left 0.5s ease-out;
+}
+
+/* Section Container */
+section {
+    padding: 50px 20px;  /* 50px top/bottom, 20px left/right */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Hero Section */
+.hero-section {
+    height: 100vh;
+    background-image: linear-gradient(black, #333);
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.hero-content {
+    text-align: right;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 100px;
+    white-space: nowrap;
+}
+/* About Section */
+.about-section {
+    padding: 20px 20px; /* Consistent padding for the whole section */
+}
+
+.about-section h1 {
+    font-size: 3rem;
+    margin-bottom: 20px; /* Space between the title and the content */
+    text-align: left; /* Align the title to the center of the section */
+    text-transform: uppercase; /* Style to match other section titles */
+    margin-left: 30px;
+}
+
+.about-cards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between the image and text content */
+}
+
+.about {
+    flex: 1;
+    background: #333;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.about img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+
+}
+
+.about p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Skills Section */
+.skill-title {
+    font-size: 3rem;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    text-align: right;
+}
+
+.skill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.skill-item {
+    background-color: #444;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.skill-item:hover {
+    transform: scale(1.05);
+}
+
+.skill-image {
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.skill-image img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.skill-item:hover .skill-image img {
+    transform: scale(1.1);
+}
+
+.skill-item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.skill-item p {
+    font-size: 0.9rem;
+    color: #bbb;
+}
+
+/* Work Section */
+.section-title {
+    font-size: 3rem;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+.work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.work-item {
+    background-color: #444;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.work-item:hover {
+    transform: scale(1.05);
+}
+
+.work-image {
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.work-image img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.work-item:hover .work-image img {
+    transform: scale(1.1);
+}
+
+.work-item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.work-item p {
+    font-size: 0.9rem;
+    color: #bbb;
+}
+
+/* Contact Section */
+.contact-section {
+    text-align: center;
+    background-image: linear-gradient(#333, black);
+    padding : 20px 0px 30px 0px;
+    width:100%;
+    height: 50vh;
+}
+
+.contact-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.contact-section p {
+    font-size: 1rem;
+    color: #bbb;
+}
+
+.contact-section a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact-section a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    padding: 20px;
+    text-align: center;
+    background-color: #222;
+}
+
+footer p {
+    font-size: 0.9rem;
+    color: #bbb;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .about-cards, .skill-grid, .work-grid {
+        flex-direction: column;
+    }
+
+    .about, .skill-item, .work-item {
+        margin: 10px 0;
+    }
+
+    .spotlight {
+        background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(150, 150, 150, 0.5) 50%, #333 100%);
+    }
+}
