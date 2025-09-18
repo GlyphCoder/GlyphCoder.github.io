@@ -162,28 +162,45 @@
             transition: top 0.5s ease-out, left 0.5s ease-out;
         }
 
-        /* Glass Morphism Effect */
+        /* Glass Morphism Effect - Now clickable */
         .glass-card {
-            background: rgba(255, 255, 255, 0.05) !important;
+            background: rgba(255, 255, 255, 0.02) !important;
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 15px;
             padding: 30px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none !important;
+            color: inherit;
         }
 
         .glass-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
-            border-color: rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.08) !important;
+            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04) !important;
+            text-decoration: none !important;
+            color: inherit;
         }
 
         .glass-card.hovered {
-            background: rgba(255, 255, 255, 0.1) !important;
-            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.04) !important;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Clickable card wrapper */
+        .clickable-card {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .clickable-card:hover {
+            text-decoration: none;
+            color: inherit;
         }
 
         /* Section Container */
@@ -255,7 +272,7 @@
             line-height: 1.6;
         }
 
-        /* Skills Section - ALIGNED */
+        /* Skills Section - ALIGNED AND FIXED HEIGHT */
         .skill-title {
             font-size: 3rem;
             margin-bottom: 40px;
@@ -267,7 +284,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
-            align-items: start;
+            align-items: stretch;
             justify-items: center;
         }
 
@@ -275,10 +292,10 @@
             transition: transform 0.3s ease-in-out;
             width: 100%;
             max-width: 350px;
+            min-height: 400px;
             height: 100%;
             display: flex;
             flex-direction: column;
-            cursor: pointer;
         }
 
         .skill-item:hover {
@@ -294,11 +311,14 @@
             overflow: hidden;
             border-radius: 10px;
             margin-bottom: 15px;
+            height: 200px;
+            flex-shrink: 0;
         }
 
         .skill-image img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             transition: transform 0.3s ease-in-out;
         }
 
@@ -318,37 +338,7 @@
             flex-grow: 1;
         }
 
-        /* Project Buttons */
-        .project-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .btn-glass {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-        }
-
-        .btn-glass:hover {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            text-decoration: none;
-            transform: translateY(-2px);
-        }
-
-        .btn-glass.loading {
-            background: rgba(255, 255, 255, 0.3);
-            pointer-events: none;
-        }
-
-        /* Work Section - ALIGNED */
+        /* Work Section - ALIGNED AND FIXED HEIGHT */
         .section-title {
             font-size: 3rem;
             margin-bottom: 40px;
@@ -360,7 +350,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
-            align-items: start;
+            align-items: stretch;
             justify-items: center;
         }
 
@@ -368,10 +358,10 @@
             transition: transform 0.3s ease-in-out;
             width: 100%;
             max-width: 350px;
+            min-height: 400px;
             height: 100%;
             display: flex;
             flex-direction: column;
-            cursor: pointer;
         }
 
         .work-item:hover {
@@ -387,11 +377,14 @@
             overflow: hidden;
             border-radius: 10px;
             margin-bottom: 15px;
+            height: 200px;
+            flex-shrink: 0;
         }
 
         .work-image img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             transition: transform 0.3s ease-in-out;
         }
 
@@ -489,6 +482,21 @@
                 font-size: 0.8rem;
             }
         }
+
+        /* Click indicator */
+        .glass-card::after {
+            content: '🔗';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .glass-card:hover::after {
+            opacity: 0.6;
+        }
     </style>
 </head>
 <body>
@@ -534,100 +542,113 @@
         </div>
     </section>
 
-    <!-- Skills Section -->
+    <!-- Skills Section with clickable cards -->
     <section class="skill-section container py-5" data-aos="fade-up">
         <div class="skill-container">
             <h2 class="skill-title text-center mb-4" data-aos="fade-down">Skills</h2>
             <div class="skill-grid">
-                <div class="skill-item glass-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="skill-image mb-3">
-                        <img src="path/to/your/image1.jpg" alt="Skill Image 1" class="img-fluid rounded">
+                <!-- Each card is now fully clickable -->
+                <a href="https://github.com/bhavyashah" target="_blank" class="clickable-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="skill-item glass-card" style="position: relative;">
+                        <div class="skill-image mb-3">
+                            <img src="path/to/your/image1.jpg" alt="Skill Image 1" class="img-fluid rounded">
+                        </div>
+                        <h3>Full Stack Development</h3>
+                        <p>Expertise in modern web technologies including React, Node.js, and database management.</p>
                     </div>
-                    <h3>Full Stack Development</h3>
-                    <p>Expertise in modern web technologies including React, Node.js, and database management.</p>
-                    <div class="project-buttons">
-                        <a href="#" class="btn-glass">Live Demo</a>
-                        <a href="#" class="btn-glass">GitHub</a>
+                </a>
+
+                <a href="https://github.com/bhavyashah/ml-projects" target="_blank" class="clickable-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="skill-item glass-card" style="position: relative;">
+                        <div class="skill-image mb-3">
+                            <img src="path/to/your/image2.jpg" alt="Skill Image 2" class="img-fluid rounded">
+                        </div>
+                        <h3>Machine Learning</h3>
+                        <p>Building intelligent systems using Python, TensorFlow, and various ML algorithms.</p>
                     </div>
-                </div>
-                <div class="skill-item glass-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="skill-image mb-3">
-                        <img src="path/to/your/image2.jpg" alt="Skill Image 2" class="img-fluid rounded">
+                </a>
+
+                <a href="https://github.com/bhavyashah/mobile-apps" target="_blank" class="clickable-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="skill-item glass-card" style="position: relative;">
+                        <div class="skill-image mb-3">
+                            <img src="path/to/your/image3.jpg" alt="Skill Image 3" class="img-fluid rounded">
+                        </div>
+                        <h3>Mobile Development</h3>
+                        <p>Creating cross-platform mobile applications with React Native and Flutter.</p>
                     </div>
-                    <h3>Machine Learning</h3>
-                    <p>Building intelligent systems using Python, TensorFlow, and various ML algorithms.</p>
-                    <div class="project-buttons">
-                        <a href="#" class="btn-glass">Live Demo</a>
-                        <a href="#" class="btn-glass">GitHub</a>
-                    </div>
-                </div>
-                <div class="skill-item glass-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="skill-image mb-3">
-                        <img src="path/to/your/image3.jpg" alt="Skill Image 3" class="img-fluid rounded">
-                    </div>
-                    <h3>Mobile Development</h3>
-                    <p>Creating cross-platform mobile applications with React Native and Flutter.</p>
-                    <div class="project-buttons">
-                        <a href="#" class="btn-glass">Live Demo</a>
-                        <a href="#" class="btn-glass">GitHub</a>
-                    </div>
-                </div>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Work Section -->
+    <!-- Work Section with clickable cards -->
     <section class="work-section container py-5" data-aos="fade-up">
         <div class="work-container">
             <h2 class="section-title text-center mb-4" data-aos="fade-down">Work</h2>
             <div class="work-grid">
-                <div class="work-item glass-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="work-image">
-                        <img src="path/to/your/image1.jpg" alt="Project Image 1" class="img-fluid rounded">
+                <a href="https://your-ecommerce-demo.com" target="_blank" class="clickable-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="work-item glass-card" style="position: relative;">
+                        <div class="work-image">
+                            <img src="path/to/your/image1.jpg" alt="Project Image 1" class="img-fluid rounded">
+                        </div>
+                        <h3>E-Commerce Platform</h3>
+                        <p>Full-stack e-commerce solution with payment integration and admin dashboard.</p>
                     </div>
-                    <h3>E-Commerce Platform</h3>
-                    <p>Full-stack e-commerce solution with payment integration and admin dashboard.</p>
-                </div>
-                <div class="work-item glass-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="work-image">
-                        <img src="path/to/your/image2.jpg" alt="Project Image 2" class="img-fluid rounded">
+                </a>
+
+                <a href="https://your-analytics-demo.com" target="_blank" class="clickable-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="work-item glass-card" style="position: relative;">
+                        <div class="work-image">
+                            <img src="path/to/your/image2.jpg" alt="Project Image 2" class="img-fluid rounded">
+                        </div>
+                        <h3>Data Analytics Tool</h3>
+                        <p>Interactive dashboard for data visualization and business intelligence.</p>
                     </div>
-                    <h3>Data Analytics Tool</h3>
-                    <p>Interactive dashboard for data visualization and business intelligence.</p>
-                </div>
-                <div class="work-item glass-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="work-image">
-                        <img src="path/to/your/image3.jpg" alt="Project Image 3" class="img-fluid rounded">
+                </a>
+
+                <a href="https://your-mobile-app-demo.com" target="_blank" class="clickable-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="work-item glass-card" style="position: relative;">
+                        <div class="work-image">
+                            <img src="path/to/your/image3.jpg" alt="Project Image 3" class="img-fluid rounded">
+                        </div>
+                        <h3>Mobile Task Manager</h3>
+                        <p>Cross-platform productivity app with real-time synchronization.</p>
                     </div>
-                    <h3>Mobile Task Manager</h3>
-                    <p>Cross-platform productivity app with real-time synchronization.</p>
-                </div>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section - NO ANIMATIONS -->
+    <!-- Contact Section - Made clickable -->
     <section class="contact-section container py-5">
         <h2 class="text-center mb-4">Contact Me</h2>
         <div class="contact-grid">
-            <div class="contact-item glass-card">
-                <h4>Email</h4>
-                <a href="mailto:bhavyashah@example.com">bhavyashah@example.com</a>
-            </div>
-            <div class="contact-item glass-card">
-                <h4>Phone</h4>
-                <a href="tel:+1234567890">+1 (234) 567-890</a>
-            </div>
-            <div class="contact-item glass-card">
-                <h4>LinkedIn</h4>
-                <a href="https://linkedin.com/in/bhavyashah" target="_blank">linkedin.com/in/bhavyashah</a>
-            </div>
+            <a href="mailto:bhavyashah@example.com" class="clickable-card">
+                <div class="contact-item glass-card" style="position: relative;">
+                    <h4>Email</h4>
+                    <p>bhavyashah@example.com</p>
+                </div>
+            </a>
+            
+            <a href="tel:+1234567890" class="clickable-card">
+                <div class="contact-item glass-card" style="position: relative;">
+                    <h4>Phone</h4>
+                    <p>+1 (234) 567-890</p>
+                </div>
+            </a>
+            
+            <a href="https://linkedin.com/in/bhavyamshah" target="_blank" class="clickable-card">
+                <div class="contact-item glass-card" style="position: relative;">
+                    <h4>LinkedIn</h4>
+                    <p>Click to connect</p>
+                </div>
+            </a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="text-white py-3 text-center">
-        <p class="mb-0">© 2024 Bhavya Shah. All rights reserved.</p>
+        <p class="mb-0">© 2025 Bhavya Shah. All rights reserved.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -635,13 +656,14 @@
     <script>
         // jQuery ready function
         $(document).ready(function() {
-            // Initialize AOS
+            // Initialize AOS with better settings
             AOS.init({
-                duration: 1000,
-                once: false,
-                mirror: true,
-                offset: 120,
-                delay: 100
+                duration: 1200,
+                once: true,
+                mirror: false,
+                offset: 50,
+                delay: 0,
+                easing: 'ease-out-cubic'
             });
 
             // Spotlight effect with jQuery
@@ -669,34 +691,13 @@
                 }
             );
 
-            // Interactive skill and work items
-            $('.skill-item, .work-item').click(function() {
-                $(this).toggleClass('expanded');
-                // Remove expanded class from other items
-                $('.skill-item, .work-item').not(this).removeClass('expanded');
-            });
-
-            // Enhanced button interactions
-            $('.btn-glass').click(function(e) {
-                e.preventDefault();
-                var originalText = $(this).text();
-                $(this).text('Loading...').addClass('loading');
-                
-                // Simulate loading for demo purposes
-                setTimeout(() => {
-                    $(this).text(originalText).removeClass('loading');
-                }, 2000);
-            });
-
-            // Smooth scrolling for any anchor links
-            $('a[href^="#"]').click(function(e) {
-                e.preventDefault();
-                var target = $(this.hash);
-                if (target.length) {
-                    $('html, body').animate({
-                        scrollTop: target.offset().top - 70
-                    }, 800);
-                }
+            // Click feedback for clickable cards
+            $('.clickable-card').click(function() {
+                $(this).find('.glass-card').animate({
+                    transform: 'scale(0.98)'
+                }, 100).animate({
+                    transform: 'scale(1)'
+                }, 100);
             });
 
             // Add click animation to download button
