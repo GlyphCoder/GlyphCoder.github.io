@@ -46,7 +46,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            z-index: 0;
+            z-index: 5;
             pointer-events: none;
             -webkit-filter: blur(1px) grayscale(0.2) saturate(1.2) sepia(0.2);
             filter: blur(1px) grayscale(0.2) saturate(1.2) sepia(0.2);
@@ -144,42 +144,18 @@
             100% { left: -100%; }
         }
 
-        /* Animated Background */
-        .lines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        .line {
-            position: absolute;
-            width: 1px;
-            background-color: rgba(255, 255, 255, 0.1);
-            top: 0;
-            height: 100vh;
-            animation: drop linear infinite;
-        }
-
-        .line:nth-child(1) { left: 10%; animation-duration: 10s; animation-delay: -1s; }
-        .line:nth-child(2) { left: 20%; animation-duration: 12s; animation-delay: -3s; }
-        .line:nth-child(3) { left: 40%; animation-duration: 8s;  animation-delay: -5s; }
-        .line:nth-child(4) { left: 70%; animation-duration: 9s;  animation-delay: -2s; }
-        .line:nth-child(5) { left: 85%; animation-duration: 11s; animation-delay: -4s; }
-
-        @keyframes drop {
-            from { transform: translateY(-100%); }
-            to { transform: translateY(100vh); }
-        }
-
-        /* Download Resume Button */
-        .download-resume {
+        /* Fixed Button Container */
+        .button-container {
             position: fixed;
             top: 20px;
             right: 20px;
             z-index: 1000;
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Download Resume Button */
+        .download-resume {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -190,9 +166,32 @@
             font-size: 0.9rem;
             font-weight: 500;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .download-resume:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+        /* Contact Me Button */
+        .contact-me {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .contact-me:hover {
             background: rgba(255, 255, 255, 0.2);
             color: white;
             text-decoration: none;
@@ -215,7 +214,7 @@
             transition: top 0.5s ease-out, left 0.5s ease-out;
         }
 
-        /* Glass Morphism Effect - MORE GLASSY */
+        /* Glass Morphism Effect */
         .glass-card {
             background: rgba(255, 255, 255, 0.08) !important;
             backdrop-filter: blur(20px) saturate(180%);
@@ -230,6 +229,8 @@
             transition: all 0.4s ease;
             text-decoration: none !important;
             color: inherit;
+            z-index: 10;
+            position: relative;
         }
 
         .glass-card:hover {
@@ -251,30 +252,38 @@
 
         /* Section Container */
         section {
-            padding: 50px 20px;
-            max-width: 95%;
+            padding: 80px 20px;
+            max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            z-index: 10;
         }
 
-        /* Hero Section */
+        /* Hero Section - FIXED TO TAKE FULL VIEWPORT */
         .hero-section {
             height: 100vh;
+            min-height: 100vh;
             background-image: linear-gradient(black, #333);
             display: flex;
             justify-content: flex-end;
             align-items: flex-end;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
         }
 
         .hero-content {
             text-align: right;
             cursor: pointer;
+            width: 100%;
+            padding-bottom: 100px;
         }
 
         .hero-content h1 {
             font-size: 4rem;
             font-weight: 700;
             color: #fff;
-            margin: 100px;
+            margin: 0 100px;
             white-space: nowrap;
             transition: transform 0.3s ease;
         }
@@ -285,12 +294,12 @@
 
         /* About Section */
         .about-section {
-            padding: 20px 20px;
+            padding: 80px 20px;
         }
 
         .about-section h1 {
             font-size: 3rem;
-            margin-bottom: 20px;
+            margin-bottom: 60px;
             text-align: center;
             text-transform: uppercase;
         }
@@ -299,7 +308,7 @@
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 30px;
         }
 
         .about {
@@ -318,10 +327,10 @@
             line-height: 1.6;
         }
 
-        /* Skills Section - ALIGNED AND FIXED HEIGHT */
+        /* Skills Section */
         .skill-title {
             font-size: 3rem;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
             text-transform: uppercase;
             text-align: center;
         }
@@ -329,7 +338,7 @@
         .skill-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 30px;
             align-items: stretch;
             justify-items: center;
         }
@@ -384,10 +393,10 @@
             flex-grow: 1;
         }
 
-        /* Work Section - ALIGNED AND FIXED HEIGHT */
+        /* Work Section */
         .section-title {
             font-size: 3rem;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
             text-transform: uppercase;
             text-align: center;
         }
@@ -395,7 +404,7 @@
         .work-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 30px;
             align-items: stretch;
             justify-items: center;
         }
@@ -454,23 +463,41 @@
         .contact-section {
             text-align: center;
             background-image: linear-gradient(#333, black);
-            padding: 50px 0px;
+            padding: 80px 0px;
             width: 100%;
             max-width: 100%;
+            position: relative;
+            z-index: 2;
         }
 
         .contact-section h2 {
             font-size: 2rem;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
             color: #fff;
+            position: relative;
+            z-index: 15;
         }
 
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            max-width: 800px;
+            gap: 30px;
+            max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            z-index: 15;
+        }
+
+        /* More transparent glass cards for contact section */
+        .contact-section .glass-card {
+            background: rgba(255, 255, 255, 0.05) !important;
+            backdrop-filter: blur(15px) saturate(160%);
+            -webkit-backdrop-filter: blur(15px) saturate(160%);
+            z-index: 15;
+        }
+
+        .contact-section .glass-card:hover {
+            background: rgba(255, 255, 255, 0.08) !important;
         }
 
         .contact-item {
@@ -500,6 +527,8 @@
             padding: 20px;
             text-align: center;
             background-color: #222;
+            position: relative;
+            z-index: 15;
         }
 
         footer p {
@@ -511,6 +540,9 @@
         @media (max-width: 768px) {
             .hero-content h1 {
                 font-size: 3rem;
+                margin: 0 20px;
+                white-space: normal;
+                text-align: center;
             }
 
             .about-cards, .skill-grid, .work-grid {
@@ -521,9 +553,14 @@
                 background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(150, 150, 150, 0.5) 50%, transparent 100%);
             }
 
-            .download-resume {
+            .button-container {
                 top: 10px;
                 right: 10px;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .download-resume, .contact-me {
                 padding: 8px 15px;
                 font-size: 0.8rem;
             }
@@ -532,6 +569,30 @@
             #foglayer_02 .image01, #foglayer_02 .image02,
             #foglayer_03 .image01, #foglayer_03 .image02 {
                 width: 100%;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+            
+            .about-section h1, .skill-title, .section-title, .contact-section h2 {
+                margin-bottom: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .button-container {
+                top: 5px;
+                right: 5px;
+            }
+            
+            .download-resume, .contact-me {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
             }
         }
 
@@ -582,19 +643,18 @@
         </div>
     </div>
 
-    <!-- Animated Background -->
-    <div class="lines">
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
+    <!-- Fixed Button Container -->
+    <div class="button-container">
+        <!-- Contact Me Button -->
+        <a href="#contact" class="contact-me">
+            Contact Me
+        </a>
+        
+        <!-- Download Resume Button -->
+        <a href="Resume_Bhavyashah.pdf" download="Resume_Bhavyashah.pdf" class="download-resume">
+            Download My Resume
+        </a>
     </div>
-
-    <!-- Download Resume Button -->
-    <a href="Resume_Bhavyashah.pdf" download="Resume_Bhavyashah.pdf" class="download-resume">
-        Download My Resume
-    </a>
 
     <!-- Spotlight Effect -->
     <div class="spotlight"></div>
@@ -606,7 +666,7 @@
         </div>
     </header>
 
-    <!-- About Section - RESTORED ANIMATIONS -->
+    <!-- About Section -->
     <section class="about-section container py-5" data-aos="fade-up">
         <h1 class="text-center mb-4" data-aos="fade-down">About Me</h1>
         <div class="about-cards row">
@@ -711,8 +771,8 @@
         </div>
     </section>
 
-    <!-- Contact Section - Made clickable -->
-    <section class="contact-section container py-5">
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section container py-5">
         <h2 class="text-center mb-4">Contact Me</h2>
         <div class="contact-grid">
             <a href="mailto:bhavya.mehul.shah@gmail.com" class="contact-item glass-card" style="text-decoration: none; color: inherit;">
@@ -728,6 +788,11 @@
             <a href="https://linkedin.com/in/bhavyamshah" target="_blank" class="contact-item glass-card" style="text-decoration: none; color: inherit;">
                 <h4>LinkedIn</h4>
                 <p>Click to connect</p>
+            </a>
+            
+            <a href="https://github.com/bhavyashah" target="_blank" class="contact-item glass-card" style="text-decoration: none; color: inherit;">
+                <h4>GitHub</h4>
+                <p>Click to view my work</p>
             </a>
         </div>
     </section>
@@ -779,6 +844,15 @@
 
             // Add click animation to download button
             $('.download-resume').click(function() {
+                $(this).animate({ 
+                    transform: 'scale(0.95)' 
+                }, 100).animate({ 
+                    transform: 'scale(1)' 
+                }, 100);
+            });
+            
+            // Add click animation to contact button
+            $('.contact-me').click(function() {
                 $(this).animate({ 
                     transform: 'scale(0.95)' 
                 }, 100).animate({ 
